@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+
+:root {
+  --black10: #000000;
+  --black9: #1a1a1a;
+  --black8: #333333;
+  --black7: #4d4d4d;
+  --black6: #666666;
+  --black5: #808080;
+  --black4: #999999;
+  --black3: #b2b2b2;
+  --black2: #cccccc;
+  --black1: #e5e5e5;
+  --black0: #ffffff;
+  --white0: #ffffff;
+  --white1: #e5e5e5;
+  --white2: #cccccc;
+  --white3: #b2b2b2;
+  --white4: #999999;
+  --white5: #808080;
+  --white6: #666666;
+  --white7: #4d4d4d;
+  --white8: #333333;
+  --white9: #1a1a1a;
+  --white10: #000000;
+  --lightGreen: #1abc9c;
+  --darkGreen: #16a085;
+  --lightLime: #4cd137;
+  --darkLime: #27ae60;
+  --lightBlue: #0097e6;
+  --darkBlue: #2980b9;
+  --lightRed: #e84118;
+  --darkRed: #c0392b;
+  --brightYellow: #fbc531;
+  --darkYellow: #f39c12;
+  --brightOrange: #e67e22;
+  --darkOrange: #d35400;
+  --lightPurple: #9b59b6;
+  --darkPurple: #8e44ad;
+  --lightNavy: #353b48;
+  --darkNavy: #2f3640;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+/* small tablet styles */
+@media screen and (min-width: 620px) {
+  .container {
+    display: grid;
+    grid-template-rows: 100px 500px 500px;
+  }
+
+  .nav {
+    background-color: var(--darkNavy);
+    color: white;
+    grid-row: 1 / 2;
+  }
+
+  .left {
+    background-color: var(--white3);
+    grid-row: 2 / 3;
+  }
+
+  .right {
+    background-color: var(--black8);
+    grid-row: 3 / 4;
+  }
+}
+
+/* large tablet & laptop styles */
+@media screen and (min-width: 960px) {
+}
+
+/* desktop styles */
+@media screen and (min-width: 1200px) {
+}
