@@ -1,73 +1,57 @@
-class Animal {
-  constructor(eyes, legs, isAwake, isMoving) {
-    this.eyes = eyes;
-    this.legs = legs;
-    this.isAwake = isAwake;
-    this.isMoving = isMoving;
-    // return is not needed because the new object is returned by default
-  }
-  sleep() {
-    this.isAwake = false;
-  }
-  wake() {
-    this.isAwake = true;
-  }
-  sit() {
-    this.isMoving = false;
-  }
-  walk() {
-    this.isMoving = true;
-  }
-  speak(sound) {
-    console.log(sound);
-  }
-  toString(animal = "Animal") {
-    return `This ${animal} has ${this.eyes} eyes and ${this.legs} legs. It ${
-      this.isAwake ? "is" : "is not"
-    } awake, and ${this.isMoving ? "is" : "is not"} moving.`;
-  }
-}
+// instantiate localstorage
+localStorage.setItem("todo_list", [1, 2, 3]);
 
-class Cat extends Animal {
-  constructor(fur, isAwake, isMoving) {
-    super(2, 2, isAwake, isMoving);
-    this.fur = fur;
-  }
-  speak() {
-    super.speak("Meow...");
-  }
-  toString() {
-    return super.toString("Cat");
-  }
-}
+// create temp variable based on what exists in localstorage
+var tempList = localStorage.todo_list.split(",");
+console.log("tempList: ", tempList[2]);
 
-class Human extends Animal {
-  constructor(hair, name, age, location, occupation, isAwake, isMoving) {
-    super(2, 2, isAwake, isMoving);
-    this.hair = hair;
-    this.name = name;
-    this.age = age;
-    this.location = location;
-    this.occupation = occupation;
-  }
-  greet() {
-    super.speak("Hello!");
-  }
-  toString() {
-    return super.toString("Human");
-  }
-}
+// // test content to add
+// let temp = [1, 2, 3];
 
-const cat1 = new Cat("Orange", true, false);
-const human = new Human(
-  "blond",
-  "Phil",
-  45,
-  "Seattle",
-  "unemployed",
-  true,
-  true
-);
+// // push test content to temp array
+// tempList.push(...temp);
 
-console.log(human);
-console.log(human.speak());
+// // check test array
+// console.log("check test array: ", tempList);
+
+// // push temp array to localstorage
+// localStorage.todo_list = tempList;
+
+// // // check localstorage
+// let derp = localStorage.getItem("todo_list").split(",");
+
+// console.log("derp array: ", derp[2]);
+
+// // get form:
+// let form = document.getElementById("form");
+// // destructure form fields:
+// const { string } = form;
+
+// form.addEventListener("submit", (e) => {
+//   e.preventDefault();
+//   console.log("clicked submit: ", string.name);
+// });
+
+// // Retrieve the list element
+// let list = document.getElementById("list"); // Assuming there's only one element with the class "list"
+
+// console.log("list: ", list);
+
+// // Create a new list item element
+// let newItem = document.createElement("li");
+
+// // // Set the text or content of the list item
+// newItem.textContent = "New Item"; // Change "New Item" to whatever text you want for the new item
+
+// // // Append the new list item to the list element
+// list.appendChild(newItem);
+
+// let displayList = localStorage.getItem("todo_list");
+
+// console.log("displayList: ", displayList);
+
+// displayList.forEach((item) => {
+//   let newItem = document.createElement("li");
+//   newItem.textContent = item;
+//   list.appendChild(newItem);
+// });
