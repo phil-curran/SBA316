@@ -1,94 +1,63 @@
-// instantiate localstorage
-// Define the array of objects
-var todoList = [
-  {
-    id: 1,
-    task: "Phil",
-    dateAdded: new Date(),
-    urgency: "high",
-    dateDue: new Date("2024-2-3"),
-    done: false,
-  },
-  {
-    id: 2,
-    task: "Phil",
-    dateAdded: new Date(),
-    urgency: "high",
-    dateDue: new Date("2024-2-3"),
-    done: false,
-  },
-];
+// instantiate permList that will update localStorage
+var permList = [{}];
 
-// Convert the array to a JSON string and store it in localStorage
-localStorage.setItem("todo_list", JSON.stringify(todoList));
+// Convert permList array to a JSON string and store it in localStorage
+// sets 'backend' and sets initial state: array with single empty object
+localStorage.setItem("permList", JSON.stringify(permList));
 
 // Retrieve the JSON string from localStorage and parse it back to an array
-var tempList = JSON.parse(localStorage.getItem("todo_list"));
+// overwrites local tempList with data from localStorage
+const updateTempList = () => {
+  // temp var that pulls from localStorage todo list
+  let temp = JSON.parse(localStorage.getItem("permList"));
+  // returns localStorage todo list as array of objects
+  return temp;
+};
 
-// Access the properties of the objects in the array
-console.log("tempList: ", tempList); // Outputs: "Phil"
+let tempList = updateTempList();
 
-// // test content to add
-// let temp = [1, 2, 3];
+console.log("temp list: ", tempList);
 
-// // push test content to temp array
-// tempList.push(...temp);
+const updatePermList = (task) => {
+  // set temp var that = tempList
+  let permList = updateTempList();
+  // push temp object to permList
+  permList.push(temp);
+  // overwrite todo_list with permlist
+  localStorage.setItem("permList", JSON.stringify(permList));
+  // update local version of todo list
+  updateTempList();
+  return permList;
+};
 
-// // check test array
-// console.log("check test array: ", tempList);
+let permList = updateTempList();
 
-// // push temp array to localstorage
-// localStorage.todo_list = tempList;
+console.log("perm list: ", permList);
 
-// // // check localstorage
-// let derp = localStorage.getItem("todo_list").split(",");
+class ToDo {
+  constructor(task, urgency, dueDate) {
+    this.id = permList.length;
+    this.task = task;
+    this.dateAdded = new Date();
+    this.urgency = urgency;
+    this.dueDate = new Date(dueDate);
+    this.done = false;
+  }
+}
 
-// console.log("derp array: ", derp[2]);
-
-// get form:
+// // get form:
 let form = document.getElementById("form");
 // destructure form fields:
-const { string } = form;
+const { task, urgency, dueDate } = form;
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log("clicked submit: ", string.name);
-});
-
-// Retrieve the list element
-let list = document.getElementById("list"); // Assuming there's only one element with the class "list"
-
-console.log("list: ", list);
-
-let displayList = JSON.parse(localStorage.getItem("todo_list"));
-
-console.log("displayList: ", displayList);
-
-displayList.forEach((item) => {
-  // Create a new table row
-  let newItem = document.createElement("tr");
-
-  // Create and append table cells
-  let idCell = document.createElement("td");
-  idCell.textContent = item.id;
-  newItem.appendChild(idCell);
-
-  let taskCell = document.createElement("td");
-  taskCell.textContent = item.task;
-  newItem.appendChild(taskCell);
-
-  let dateAddedCell = document.createElement("td");
-  dateAddedCell.textContent = item.dateAdded;
-  newItem.appendChild(dateAddedCell);
-
-  let urgencyCell = document.createElement("td");
-  urgencyCell.textContent = item.urgency;
-  newItem.appendChild(urgencyCell);
-
-  let dateDueCell = document.createElement("td");
-  dateDueCell.textContent = item.dateDue;
-  newItem.appendChild(dateDueCell);
-
-  // Append the new table row to the table
-  list.appendChild(newItem);
+  console.log("task: ", task.value);
+  console.log("urgency: ", urgency.value);
+  console.log("due date: ", dueDate.value);
+  let temp = new ToDo(task.value, urgency.value, dueDate.value);
+  console.log(temp);
+  updatePermList(temp);
+  console.log("updated temp list: ", tempList.length);
+  console.log("updated perm list: ", permList.length);
 });

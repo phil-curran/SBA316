@@ -9,28 +9,17 @@
   <body>
     <div class="container">
       <form id="form">
-        <label for="string">string:</label><br />
-        <input type="text" id="string" name="string" value="" /><br />
+        <label for="task">Task:</label><br />
+        <input type="text" id="task" name="task" /><br />
+
+        <label for="urgency">Urgency:</label><br />
+        <input type="text" id="urgency" name="urgency" /><br />
+
+        <label for="dueDate">Due Date:</label><br />
+        <input type="date" id="dueDate" name="dueDate" /><br />
+
         <input type="submit" value="Submit" />
       </form>
-      <div>
-        <table>
-          <thead>
-            <th>
-              <tr>
-                <td>Id:</td>
-                <td>Task:</td>
-                <td>Date added:</td>
-                <td>Urgency:</td>
-                <td>Due date:</td>
-              </tr>
-            </th>
-          </thead>
-          <tbody id="list"></tbody>
-        </table>
-
-        <ul id="list"></ul>
-      </div>
     </div>
     <script src="./_js/script.js"></script>
   </body>
