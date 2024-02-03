@@ -1,38 +1,37 @@
-// instantiate permList that will update localStorage
-var permList = [{}];
+// instantiate remote permList that will update localStorage
+
+if (localStorage.getItem("permList")) {
+  let permList = localStorage.getItem("permList");
+} else {
+  localStorage.setItem("permList", [{}]);
+}
 
 // Convert permList array to a JSON string and store it in localStorage
 // sets 'backend' and sets initial state: array with single empty object
 localStorage.setItem("permList", JSON.stringify(permList));
 
-// Retrieve the JSON string from localStorage and parse it back to an array
-// overwrites local tempList with data from localStorage
+// function that overwrites tempList retrieves permList from 'remote' localStorage
 const updateTempList = () => {
-  // temp var that pulls from localStorage todo list
-  let temp = JSON.parse(localStorage.getItem("permList"));
-  // returns localStorage todo list as array of objects
-  return temp;
+  return JSON.parse(localStorage.getItem("permList"));
 };
 
-let tempList = updateTempList();
-
-console.log("temp list: ", tempList);
+// instantiates local tempList; temp copy of 'remote' permList
+// let tempList = updateTempList();
+let tempList = [{}];
 
 const updatePermList = (task) => {
   // set temp var that = tempList
-  let permList = updateTempList();
+  // let overwritePermList = updateTempList();
   // push temp object to permList
-  permList.push(temp);
+  console.log("tempList before: ", tempList);
+  tempList.push(task);
+  console.log("tempList after: ", tempList);
+  // tempList.push(task);
   // overwrite todo_list with permlist
-  localStorage.setItem("permList", JSON.stringify(permList));
+  localStorage.setItem("permList", JSON.stringify([...tempList]));
   // update local version of todo list
-  updateTempList();
-  return permList;
+  // updateTempList();
 };
-
-let permList = updateTempList();
-
-console.log("perm list: ", permList);
 
 class ToDo {
   constructor(task, urgency, dueDate) {
@@ -52,12 +51,11 @@ const { task, urgency, dueDate } = form;
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log("task: ", task.value);
-  console.log("urgency: ", urgency.value);
-  console.log("due date: ", dueDate.value);
-  let temp = new ToDo(task.value, urgency.value, dueDate.value);
-  console.log(temp);
-  updatePermList(temp);
-  console.log("updated temp list: ", tempList.length);
-  console.log("updated perm list: ", permList.length);
+  // new task object via class ToDo
+  let tempTask = new ToDo(task.value, urgency.value, dueDate.value);
+  console.log(tempTask);
+  updatePermList(tempTask);
+  // test addition of task
+  console.log("updated temp list: ", tempList);
+  console.log("updated perm list: ", permList);
 });
