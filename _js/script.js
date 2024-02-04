@@ -56,11 +56,10 @@ form.addEventListener("submit", (e) => {
 // Retrieve the list element
 let list = document.getElementById("list");
 
+// redraws table
 const drawTable = () => {
   let displayList = getList();
   list.innerHTML = "";
-  console.log("displayList: ", displayList);
-
   displayList.forEach((item) => {
     if (item.id > 0) {
       // Create a new table row
@@ -92,7 +91,7 @@ const drawTable = () => {
 
       let editCell = document.createElement("td");
       editCell.innerHTML = `<button class="uk-icon-button caution" uk-icon="file-edit"></button>
-      <button class="uk-icon-button warning" uk-icon="trash"></button>`;
+      <button id=${item.id} class="uk-icon-button warning" uk-icon="trash"></button>`;
       editCell.classList.add("centered-text", "centered-icons");
       newItem.appendChild(editCell);
 
@@ -103,3 +102,26 @@ const drawTable = () => {
 };
 
 drawTable();
+
+// get delete buttons
+let deleteButtons = Array.from(document.getElementsByClassName("warning"));
+
+const handleDeleteTask = (e) => {
+  e.preventDefault();
+  // get task id of clicked button
+  let id = e.target.id;
+  console.log("delete btn");
+  // get todo list
+  let editList = getList();
+  // filter tasks that don't match clicked id
+  editList.filter((task) => task.id !== id);
+  // overwrite todo_list with new local todo list
+  localStorage.setItem("permList", JSON.stringify(editList));
+  // redraw todo table
+  drawTable();
+};
+
+// Attach event listener to each delete button
+deleteButtons.forEach((button) => {
+  button.addEventListener("click", handleDeleteTask);
+});
