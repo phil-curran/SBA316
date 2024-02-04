@@ -56,14 +56,14 @@ form.addEventListener("submit", (e) => {
   // call addTask function and push new tempTask
   addTask(tempTask);
   // rerender table
-  drawTable();
+  handleDrawTable();
 });
 
 // Get & set tbody as target for tr list creation
 let list = document.getElementById("list");
 
 // redraws table
-const drawTable = () => {
+const handleDrawTable = () => {
   // get todo list from localStorage as array
   let displayList = getList();
   // clear list innerhtml otherwise rows just pile up
@@ -113,7 +113,7 @@ const drawTable = () => {
 };
 
 // render table on load
-drawTable();
+handleDrawTable();
 
 // get delete buttons
 let deleteButtons = Array.from(document.querySelectorAll(".warning"));
@@ -130,7 +130,7 @@ const handleDeleteTask = (e) => {
   // overwrites localStorage item with new array as string
   localStorage.setItem("permList", JSON.stringify(editedList));
   // retrigger render of table with new version of todo list
-  drawTable();
+  handleDrawTable();
 };
 
 // Attach event listener to each delete button

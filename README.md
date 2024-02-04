@@ -17,3 +17,4 @@ Known issues:
 Future functionality:
 
 - allow editing of existing tasks.
+- move completed tasks to separate 'done' section below.
