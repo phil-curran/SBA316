@@ -91,6 +91,8 @@ const drawTable = () => {
 
       let urgencyCell = document.createElement("td");
       urgencyCell.textContent = item.urgency;
+      urgencyCell.classList.add(`${item.urgency}`);
+      console.log("urgency: ", item.urgency);
       newItem.appendChild(urgencyCell);
 
       let dateDueCell = document.createElement("td");
@@ -114,7 +116,7 @@ const drawTable = () => {
 drawTable();
 
 // get delete buttons
-let deleteButtons = Array.from(document.getElementsByClassName("warning"));
+let deleteButtons = Array.from(document.querySelectorAll(".warning"));
 
 // event handler for deleting tasks
 const handleDeleteTask = (e) => {
