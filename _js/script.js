@@ -1,9 +1,8 @@
-// instantiate permList that will update localStorage
-
-// Convert permList array to a JSON string and store it in localStorage
-// sets 'backend' and sets initial state: array with single empty object
+// if permlist isn't already in localStorage
 if (localStorage.getItem("permList") === null) {
+  // instantiate permlist as array of empty object
   var permList = [{}];
+  // set localstorage with permlist
   localStorage.setItem("permList", JSON.stringify(permList));
 }
 
@@ -14,22 +13,23 @@ const getList = () => {
 };
 
 const addTask = (task) => {
-  // set temp var that = todo list
+  // set temp var that = todo list as an array
   let temp = JSON.parse(localStorage.getItem("permList"));
-  // push temp object to todo list
+  // push temp object to todo list array
   temp.push(task);
-  // overwrite todo_list with new local todo list
+  // overwrite todo_list with new local todo list as string
   localStorage.setItem("permList", JSON.stringify(temp));
 };
 
 // todo model class
 class ToDo {
   constructor(task, urgency, dueDate) {
-    this.id = JSON.parse(localStorage.getItem("permList")).length;
+    this.id = getList().length;
     this.task = task;
     this.dateAdded = new Date();
     this.urgency = urgency;
     this.dueDate = new Date(dueDate);
+    console.log("this due date: ", this.dueDate);
     this.done = false;
   }
 }
@@ -38,28 +38,37 @@ const dateConverter = (date) => {
   let temp = new Date(date);
   let month = temp.getMonth() + 1;
   let day = temp.getDay();
+  let formattedDate = (date) => {
+    return date < 10 ? "0" + date : date;
+  };
   let year = temp.getFullYear();
-  return `${month}/${day}/${year}`;
+  return `${formattedDate(month)}/${formattedDate(day)}/${year}`;
 };
-// // get form:
+
+// get form:
 let form = document.getElementById("form");
 // destructure form fields:
 const { task, urgency, dueDate } = form;
 
 form.addEventListener("submit", (e) => {
-  e.preventDefault();
+  // use ToDo task to create new todo object
   let tempTask = new ToDo(task.value, urgency.value, dueDate.value);
+  // call addTask function and push new tempTask
   addTask(tempTask);
+  // rerender table
   drawTable();
 });
 
-// Retrieve the list element
+// Get & set tbody as target for tr list creation
 let list = document.getElementById("list");
 
 // redraws table
 const drawTable = () => {
+  // get todo list from localStorage as array
   let displayList = getList();
+  // clear list innerhtml otherwise rows just pile up
   list.innerHTML = "";
+  // map todo list and create new row for each item
   displayList.forEach((item) => {
     if (item.id > 0) {
       // Create a new table row
@@ -101,20 +110,24 @@ const drawTable = () => {
   });
 };
 
+// render table on load
 drawTable();
 
 // get delete buttons
 let deleteButtons = Array.from(document.getElementsByClassName("warning"));
 
+// event handler for deleting tasks
 const handleDeleteTask = (e) => {
-  e.preventDefault();
+  // e.preventDefault();
+  // gets list from localStorage as array
   let editList = getList();
-  console.log("edit list: ", editList);
+  // filters out tasks that are the clicked task.id
   let editedList = editList.filter((task) => {
     return task.id !== parseInt(e.target.id);
   });
-  console.log("edited list: ", editedList);
+  // overwrites localStorage item with new array as string
   localStorage.setItem("permList", JSON.stringify(editedList));
+  // retrigger render of table with new version of todo list
   drawTable();
 };
 
