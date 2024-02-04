@@ -4,23 +4,64 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <!-- UIkit CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/uikit@3.18.0/dist/css/uikit.min.css"
+    />
     <link rel="stylesheet" href="./_css/styles.css" />
   </head>
   <body>
     <div class="container">
       <form id="form">
-        <label for="task">Task:</label><br />
-        <input type="text" id="task" name="task" /><br />
-
-        <label for="urgency">Urgency:</label><br />
-        <input type="text" id="urgency" name="urgency" /><br />
-
-        <label for="dueDate">Due Date:</label><br />
-        <input type="date" id="dueDate" name="dueDate" /><br />
-
-        <input type="submit" value="Submit" />
+        <div>
+          <label for="task">Task:</label><br />
+          <input class="uk-input" type="text" id="task" name="task" />
+        </div>
+        <div>
+          <label for="urgency">Urgency:</label><br />
+          <select class="uk-select" name="urgency" id="urgency" form="form">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div>
+          <label for="dueDate">Due Date:</label><br />
+          <input class="uk-input" type="date" id="dueDate" name="dueDate" />
+        </div>
+        <div>
+          <button
+            class="uk-button uk-button-primary uk-button-small"
+            type="submit"
+            value="Submit"
+          >
+            Submit
+          </button>
+        </div>
       </form>
+      <h1>To Do:</h1>
+      <div>
+        <table class="uk-table uk-table-divider">
+          <thead>
+            <tr>
+              <th id="c1width">ID:</th>
+              <th id="c2width">TASK:</th>
+              <th id="c3width">DATE ADDED:</th>
+              <th id="c4width">URGENCY:</th>
+              <th id="c5width">DUE DATE:</th>
+              <th id="c6width">EDIT:</th>
+            </tr>
+          </thead>
+          <tbody id="list"></tbody>
+        </table>
+      </div>
+      <hr />
+      <h1>Done:</h1>
     </div>
     <script src="./_js/script.js"></script>
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.18.0/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.18.0/dist/js/uikit-icons.min.js"></script>
   </body>
 </html>
