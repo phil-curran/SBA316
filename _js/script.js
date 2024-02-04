@@ -108,16 +108,13 @@ let deleteButtons = Array.from(document.getElementsByClassName("warning"));
 
 const handleDeleteTask = (e) => {
   e.preventDefault();
-  // get task id of clicked button
-  let id = e.target.id;
-  console.log("delete btn");
-  // get todo list
   let editList = getList();
-  // filter tasks that don't match clicked id
-  editList.filter((task) => task.id !== id);
-  // overwrite todo_list with new local todo list
-  localStorage.setItem("permList", JSON.stringify(editList));
-  // redraw todo table
+  console.log("edit list: ", editList);
+  let editedList = editList.filter((task) => {
+    return task.id !== parseInt(e.target.id);
+  });
+  console.log("edited list: ", editedList);
+  localStorage.setItem("permList", JSON.stringify(editedList));
   drawTable();
 };
 
