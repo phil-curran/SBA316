@@ -1,4 +1,0 @@
-/* 
-fix page reload issue
-fix date display issue
-*/
